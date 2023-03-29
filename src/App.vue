@@ -1,8 +1,11 @@
 <template>
   <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
+    <router-link to="/labels">标签</router-link>|
+    <router-link to="/journal">记账</router-link> |
+    <router-link to="/count">统计</router-link>
+
   </nav>
+  <hr>
   <router-view/>
 </template>
 
