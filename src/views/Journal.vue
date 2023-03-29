@@ -1,10 +1,13 @@
 <template>
-    <div>Journal.vue</div>
+    <div>Journal.vue
+    <Nav/></div>
 </template>
 
 <script>
+
     export default {
-        name:'Journal'
+        name:'Journal',
+
     }
 </script>
 

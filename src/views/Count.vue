@@ -1,10 +1,13 @@
 <template>
-    <div>Count.vue</div>
+    <div>Count.vue
+    <Nav/></div>
 </template>
 
 <script>
+
     export default {
-        name: "Count"
+        name: "Count",
+
     }
 </script>
 
