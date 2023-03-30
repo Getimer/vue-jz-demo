@@ -1,9 +1,18 @@
 <template>
-    <div class="nav" >
-        <router-link to="/labels"><Icon name="labels"/>标签</router-link>|
-        <router-link to="/journal"><Icon name="journal"/>记账</router-link> |
-        <router-link to="/count"><Icon name="count"/>统计</router-link>
-    </div>
+    <nav>
+        <router-link to="/labels" class="item">
+            <Icon name="labels"/>
+            标签
+        </router-link>
+        <router-link to="/journal" class="item">
+            <Icon name="journal"/>
+            记账
+        </router-link>
+        <router-link to="/count" class="item">
+            <Icon name="count"/>
+            统计
+        </router-link>
+    </nav>
 </template>
 
 <script lang="ts">
@@ -14,8 +23,24 @@
     }
 </script>
 
-<style scoped>
-.nav{
-    border: 1px solid red;
+<style lang="scss" scoped>
+nav{
+    display: flex;
+    box-shadow: 0 0 0 2px rgba(0,0,0,0.15);
+    flex-direction: row;
+    font-size: 12px;
+    > .item{
+        padding:2px 0 ;
+        display: flex;
+        width:33.33333%;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        .icon{
+
+            width: 32px;
+            height: 32px;
+        }
+    }
 }
 </style>
