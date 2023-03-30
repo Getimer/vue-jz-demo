@@ -1,16 +1,9 @@
 <template>
-    <div>Count.vue
-    <Nav/></div>
+   <Layout>Count.vue</Layout>
 </template>
 
 <script>
-
     export default {
         name: "Count",
-
     }
 </script>
-
-<style scoped>
-
-</style>
