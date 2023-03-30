@@ -1,10 +1,10 @@
 <template>
-    <nav>
+    <div class="nav" >
         <router-link to="/labels">标签</router-link>|
         <router-link to="/journal">记账</router-link> |
         <router-link to="/count">统计</router-link>
 
-    </nav>
+    </div>
 </template>
 
 <script>
@@ -14,5 +14,7 @@
 </script>
 
 <style scoped>
-
+.nav{
+    border: 1px solid red;
+}
 </style>
