@@ -5,27 +5,29 @@
     </ul>
 </template>
 
-<script >
-    export default {
-        name: 'Types',
-        props:['xxx'],
-        data() {
-            return {
-                type: '-'//'-'表示支出 '+'表示支入
-            };
+<script lang="ts">
+    import { defineComponent } from 'vue';
+    export default defineComponent({
+        data(){
+            return{
+                type:'-',
+            }
+        },
+        props:{
+            xxx:String
         },
         mounted(){
             console.log(this.xxx);
         },
-        methods: {
-            selectType(type) {
-                if (type !== '-' && type !== '+') {
-                    throw new Error('type is unknown');
+        methods:{
+            selectType(type: string) {
+                if (type !=='-' && type !== '+') {
+                     throw new Error('type is unknown');
                 }
-                this.type = type;
+                    this.type = type;
+                }
             }
-        }
-    };
+    })
 </script>
 
 <style lang="scss" scoped>
