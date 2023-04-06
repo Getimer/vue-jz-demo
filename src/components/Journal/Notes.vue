@@ -1,14 +1,20 @@
 <template>
     <label class="notes">
         <span class="name">备注</span>
-        <input type="text" placeholder="在这里添加备注">
+        <input type="text" placeholder="在这里添加备注" v-model="value">
     </label>
 </template>
 
 <script lang="ts">
-    export default {
-        name: 'Notes'
-    };
+    import {defineComponent} from 'vue';
+    export default defineComponent({
+        name: 'Notes',//?
+         data(){
+            return{
+                value:'',
+            }
+         }
+    })
 </script>
 
 <style lang="scss" scoped>
