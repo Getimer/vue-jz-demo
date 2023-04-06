@@ -3,7 +3,7 @@
         <NumberPad/>
         <Types/>
         <Notes/>
-        <Tags/>
+        <Tags v-model:data-source="tags" />
     </Layout>
 </template>
 
@@ -15,6 +15,11 @@
     export default {
         name: 'Journal',
         components: {Tags, Notes, Types, NumberPad},
+        data(){
+            return{
+                tags:['衣','食','住','行']
+            }
+        }
     }
 </script>
 <style lang="scss">
