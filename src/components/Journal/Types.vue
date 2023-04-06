@@ -16,9 +16,6 @@
         props:{
             xxx:String
         },
-        mounted(){
-            console.log(this.xxx);
-        },
         methods:{
             selectType(type: string) {
                 if (type !=='-' && type !== '+') {
