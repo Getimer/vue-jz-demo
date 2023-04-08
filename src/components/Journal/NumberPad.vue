@@ -27,9 +27,10 @@
     export default defineComponent({
         data() {
             return {
-                output: '0'
+                output:this.value.toString()
             };
         },
+        props:['value'],
         methods: {
             inputContent(event: MouseEvent) {
                 const button = (event.target as HTMLButtonElement);
@@ -59,6 +60,11 @@
             },
             clear() {
                 this.output = '0';
+            },
+            ok(){
+                this.$emit('update:value',this.output);
+                this.$emit('saveRecord',this.output);
+                this.output='0'
             }
         }
     });

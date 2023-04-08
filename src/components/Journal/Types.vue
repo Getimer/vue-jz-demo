@@ -6,25 +6,19 @@
 </template>
 
 <script lang="ts">
-    import { defineComponent } from 'vue';
+    import {defineComponent} from 'vue';
+
     export default defineComponent({
-        data(){
-            return{
-                type:'-',
-            }
-        },
-        props:{
-            xxx:String
-        },
-        methods:{
+        props:['type'],
+        methods: {
             selectType(type: string) {
-                if (type !=='-' && type !== '+') {
-                     throw new Error('type is unknown');
+                if (type !== '-' && type !== '+') {
+                    throw new Error('type is unknown');
                 }
-                    this.type = type;
-                }
+                this.$emit('update:value', type);
             }
-    })
+        }
+    });
 </script>
 
 <style lang="scss" scoped>

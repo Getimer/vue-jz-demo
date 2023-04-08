@@ -13,35 +13,33 @@
     </div>
 </template>
 
-<script lang="ts">
+<script lang="js">
     import {defineComponent} from 'vue';
 
     export default defineComponent({
         data() {
             return {
-                selectedTags: [''],
+                selectedTags:[] ,
+
             };
         },
-        props: {
-            dataSource:{
-                type:Array
-            }
-        },
+        props: ['dataSource'],
         methods: {
-            toggle(tag: string) {
+            toggle(tag) {
                 const index = this.selectedTags.indexOf(tag);
                 if (index >= 0) {
                     this.selectedTags.splice(index, 1);
                 } else {
                     this.selectedTags.push(tag);
                 }
+                this.$emit('update:value',this.selectedTags)
             },
             createTag(){
                 const name=window.prompt('请输入标签名');
                 if(name===''){
                     window.alert('标签名不能为空');
-                }else if(this.dataSource){
-                    this.$emit('update:dataSource',[...this.dataSource,name]);
+                }else if(dataSource){
+                    this.$emit('update:dataSource',[...dataSource,name]);
                 }
             }
         }

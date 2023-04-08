@@ -7,12 +7,18 @@
 
 <script lang="ts">
     import {defineComponent} from 'vue';
+
     export default defineComponent({
          data(){
             return{
                 value:'',
             }
-         }
+         },
+        watch:{
+             value(){
+                 this.$emit('update:value',this.value)
+             }
+        }
     })
 </script>
 
