@@ -23,13 +23,14 @@
                     tags: [],
                     notes: '',
                     type: '-',
-                    amount: 0
+                    amount: 0,
+                    created:'',
                 },
                 recordList: []
             }
         },
         mounted() {
-            this.recordList = JSON.parse(localStorage.getItem('recordList'))
+            if(localStorage.getItem('recordList')){this.recordList = JSON.parse(localStorage.getItem('recordList'))}
         },
         methods: {
             onUpdateTags(value) {
@@ -45,14 +46,10 @@
                 this.record.amount = value
             },
             onSaveRecord() {
-                console.log(typeof this.record)
-                console.log(JSON.stringify(this.record))
+                this.record.created=new Date()
                 const record2 = JSON.parse(JSON.stringify(this.record));
-                console.log(record2)
                 this.recordList.push(record2);
                 localStorage.setItem('recordList', JSON.stringify(this.recordList))
-                console.log(this.recordList)
-                console.log(typeof this.recordList)
             }
         }
     }
