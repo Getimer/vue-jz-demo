@@ -12,7 +12,7 @@
     import Types from "@/components/Journal/Types.vue";
     import Notes from "@/components/Journal/Notes.vue";
     import Tags from "@/components/Journal/Tags.vue";
-
+    import {model} from '@/model.js'
     export default {
         name: 'Journal',
         components: {Tags, Notes, Types, NumberPad},
@@ -30,7 +30,7 @@
             }
         },
         mounted() {
-            if(localStorage.getItem('recordList')){this.recordList = JSON.parse(localStorage.getItem('recordList'))}
+            this.recordList=model.fetch()
         },
         methods: {
             onUpdateTags(value) {
@@ -47,9 +47,9 @@
             },
             onSaveRecord() {
                 this.record.created=new Date()
-                const record2 = JSON.parse(JSON.stringify(this.record));
+                const record2 = model.clone(this.record);
                 this.recordList.push(record2);
-                localStorage.setItem('recordList', JSON.stringify(this.recordList))
+                model.save(this.recordList)
             }
         }
     }
