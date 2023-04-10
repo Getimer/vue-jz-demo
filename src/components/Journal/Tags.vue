@@ -38,8 +38,8 @@
                 const name=window.prompt('请输入标签名');
                 if(name===''){
                     window.alert('标签名不能为空');
-                }else if(dataSource){
-                    this.$emit('update:dataSource',[...dataSource,name]);
+                }else if(this.dataSource && name!=null){
+                    this.$emit('update:dataSource',[...this.dataSource,name]);
                 }
             }
         }

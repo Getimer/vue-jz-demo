@@ -1,27 +1,37 @@
 import {createRouter, createWebHashHistory, RouteRecordRaw} from 'vue-router';
 
-import Journal from '@/views/Journal.vue'
-import Labels from '@/views/Labels.vue'
-import Count from '@/views/Count.vue'
-import NotFound from '@/views/NotFound.vue'
+import Journal from '@/views/Journal.vue';
+import Labels from '@/views/Labels.vue';
+import Count from '@/views/Count.vue';
+import NotFound from '@/views/NotFound.vue';
+import EditLabel from '@/views/EditLabel.vue';
+
 const routes: Array<RouteRecordRaw> = [
     {
-        path:'/journal',
-        component:Journal
+        path: '/journal',
+        component: Journal
     },
     {
-        path:'/',
-        component:Journal
+        path: '/',
+        component: Journal
     },
     {
-        path:'/labels',
-        component:Labels
+        path: '/labels',
+        component: Labels
     },
     {
-        path:'/count',
-        component:Count
+        path: '/labels/edit/:id',
+        component: EditLabel
     },
-    { path: '/:pathMatch(.*)*',  component: NotFound },
+    {
+        path: '/count',
+        component: Count
+    },
+
+    {
+        path: '/:pathMatch(.*)*',
+        component: NotFound
+    },
 ];
 
 
