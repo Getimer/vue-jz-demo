@@ -1,22 +1,23 @@
 <template>
     <Layout>
-        <ol class="tags">
-            <li v-for="tag in tags" :key="tag.id"><span>{{tag.name}}</span>
+        <div class="tags">
+            <router-link class="tag" v-for="tag in tags" :key="tag.id" :to="`/labels/edit/${tag.id}`"><span>{{tag.name}}</span>
                 <Icon name="right"/>
-            </li>
-        </ol>
+            </router-link>
+        </div>
         <div class="add-wrapper">
-            <button class="add" @click="createTags">新增标签</button></div>
+            <Button class="add" @click="createTags">新增标签</Button></div>
     </Layout>
 </template>
 
 <script>
     import Icon from "@/components/Icon";
+    import Button from "@/components/Button";
     import {tagListModel} from "@/models/tagListModel";
     tagListModel.fetch()
     export default {
         name:'Labels',
-        components: {Icon},
+        components: {Icon,Button},
         data(){
             return{
                 tags:tagListModel.data
@@ -42,7 +43,7 @@
 <style lang="scss" scoped>
     .tags{
         font-size: 16px;
-        > li{
+        > .tag{
             display: flex;
             justify-content:space-between;
             background: white;

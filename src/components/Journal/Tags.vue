@@ -53,7 +53,7 @@
         padding: 16px;
         flex-grow: 1;
         flex-direction: column-reverse;
-
+        background: white;
         > .current {
             display: flex;
             flex-direction: row;
@@ -79,7 +79,6 @@
 
         > .add {
             margin-top: 16px;
-
             button {
                 background: transparent;
                 border: none;

@@ -2,23 +2,28 @@
     <Layout class-prefix="layout">
         <NumberPad @update:value="onUpdateAmount" @saveRecord="onSaveRecord" v-model:value="record.amount"/>
         <Types @update:value="onUpdateType" v-model:type="this.record.type"/>
-        <Notes @update:value="onUpdateNotes"/>
+        <div class="formItem-wrapper">
+        <FormItem file-name="备注" placeholder="在这里添加备注"  @update:value="onUpdateNotes"/>
+        </div>
         <Tags v-model:data-source="tags" @update:value="onUpdateTags"/>
     </Layout>
 </template>
 
 <script lang="js">
+    import Layout from "@/components/Layout";
     import NumberPad from "@/components/Journal/NumberPad.vue";
     import Types from "@/components/Journal/Types.vue";
-    import Notes from "@/components/Journal/Notes.vue";
+    import FormItem from "@/components/Journal/FormItem.vue";
     import Tags from "@/components/Journal/Tags.vue";
     import {recordListModel} from '@/models/recordListModel.js'
+    import {tagListModel} from "@/models/tagListModel";
+    tagListModel.fetch()
     export default {
         name: 'Journal',
-        components: {Tags, Notes, Types, NumberPad},
+        components: {Tags, FormItem, Types, NumberPad,Layout},
         data() {
             return {
-                tags: ['衣', '食', '住', '行'],
+                tags: [],
                 record: {
                     tags: [],
                     notes: '',
@@ -31,6 +36,7 @@
         },
         mounted() {
             this.recordList=recordListModel.fetch()
+            this.tags=tagListModel.data
         },
         methods: {
             onUpdateTags(value) {
@@ -58,5 +64,8 @@
     .layout-content {
         display: flex;
         flex-direction: column-reverse;
+    }
+    .formItem-wrapper{
+        padding: 12px 0;
     }
 </style>
