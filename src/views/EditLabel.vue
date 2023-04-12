@@ -1,15 +1,15 @@
 <template>
     <Layout>
         <div class="navBar">
-            <Icon class="leftIcon" name="left"/>
+            <Icon @click="goBack" class="leftIcon" name="left"/>
             <span class="title">编辑标签</span>
             <span class="rightIcon"></span>
         </div>
         <div class="form-wrapper">
-            <FormItem :value="this.tag" file-name="标签名" placeholder="请输入标签名"/>
+            <FormItem :value="this.tag.name" @update:value="update" file-name="标签名" placeholder="请输入标签名"/>
         </div>
         <div class="btn-wrapper">
-            <Button>删除标签</Button>
+            <Button @click="remove">删除标签</Button>
         </div>
     </Layout>
 </template>
@@ -26,7 +26,7 @@
         components: {Button, Layout, Icon, FormItem},
         data(){
             return{
-                tag:'',
+                tag: {},
             }
         },
         created() {
@@ -35,9 +35,22 @@
             const tags = tagListModel.data;
             const tag = tags.filter(t => t.id === id)[0]
             if (tag) {
-                this.tag=tag.name
+                this.tag=tag
             }else {
                 this.$router.replace('/404')
+            }
+        },
+        methods:{
+            update(name){
+                if(this.tag){
+                    tagListModel.update(this.tag.id,name)
+                }
+            },
+            remove(){
+                tagListModel.remove(this.tag.id)
+            },
+            goBack(){
+                this.$router.back()
             }
         }
     }
