@@ -1,24 +1,23 @@
 <template>
     <label class="formItem">
         <span class="name">{{this.fileName}}</span>
-        <input type="text" :placeholder="this.placeholder" v-model="value">
+        <input  type="text"
+                :placeholder="this.placeholder"
+                :value="this.value"
+                @input="onChangeValue($event.target.value)"
+        >
     </label>
 </template>
 
-<script lang="ts">
+<script lang="js">
     import {defineComponent} from 'vue';
 
     export default defineComponent({
-         data(){
-            return{
-                value:'',
-            }
-         },
-        props:['fileName','placeholder'],
-        watch:{
-             value(){
-                 this.$emit('update:value',this.value)
-             }
+        props:['fileName','placeholder','value'],
+        methods:{
+          onChangeValue(val){
+              this.$emit('update:value',val)
+          }
         }
     })
 </script>

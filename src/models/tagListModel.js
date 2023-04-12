@@ -16,6 +16,9 @@ const  tagListModel={
         location.reload()
         return 'success'
     },
+    saveTag(value){
+        this.data=value
+    },
     save(){
         window.localStorage.setItem(localStorageKeyName, JSON.stringify(this.data))
     }

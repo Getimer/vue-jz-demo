@@ -26,7 +26,7 @@
                 tags: [],
                 record: {
                     tags: [],
-                    notes: '',
+                    formItem: '',
                     type: '-',
                     amount: 0,
                     created:'',
@@ -35,7 +35,9 @@
             }
         },
         mounted() {
-            this.recordList=recordListModel.fetch()
+            if(recordListModel.fetch()!==null){
+                this.recordList=recordListModel.fetch()
+            }
             this.tags=tagListModel.data
         },
         methods: {
@@ -46,7 +48,7 @@
                 this.record.type = value
             },
             onUpdateNotes(value) {
-                this.record.notes = value
+                this.record.formItem = value
             },
             onUpdateAmount(value) {
                 this.record.amount = value
@@ -56,6 +58,7 @@
                 const record2 = recordListModel.clone(this.record);
                 this.recordList.push(record2);
                 recordListModel.save(this.recordList)
+
             }
         }
     }
