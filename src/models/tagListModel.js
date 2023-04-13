@@ -1,3 +1,5 @@
+import {idCreator} from "@/lib/idCreator";
+
 const localStorageKeyName='tagList'
 const  tagListModel={
     data:[],
@@ -11,7 +13,9 @@ const  tagListModel={
         if(names.indexOf(name)>=0){
             return 'duplicated'
         }
-        this.data.push({id:name,name:name})
+        const id=idCreator.createId().toString()
+        idCreator.save()
+        this.data.push({id,name:name})
         this.save()
         location.reload()
         return 'success'
