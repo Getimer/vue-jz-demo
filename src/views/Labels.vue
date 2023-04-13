@@ -14,13 +14,13 @@
     import Icon from "@/components/Icon";
     import Button from "@/components/Button";
     import {tagListModel} from "@/models/tagListModel";
-    tagListModel.fetch()
+
     export default {
         name:'Labels',
         components: {Icon,Button},
         data(){
             return{
-                tags:tagListModel.data
+                tags:window.tagList
             }
         },
        methods:{

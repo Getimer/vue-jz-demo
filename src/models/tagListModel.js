@@ -6,6 +6,7 @@ const  tagListModel={
     fetch(){
         if(window.localStorage.getItem(localStorageKeyName)){
             this.data=JSON.parse(localStorage.getItem(localStorageKeyName))
+            return this.data
         }
     },
     create(name){
@@ -46,7 +47,6 @@ const  tagListModel={
         }
         this.data.splice(index,1)
         this.save()
-        location.reload()
         return true
     },
     save(){

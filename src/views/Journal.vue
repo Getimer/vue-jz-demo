@@ -16,8 +16,6 @@
     import FormItem from "@/components/Journal/FormItem.vue";
     import Tags from "@/components/Journal/Tags.vue";
     import {recordListModel} from '@/models/recordListModel.js'
-    import {tagListModel} from "@/models/tagListModel";
-    tagListModel.fetch()
     export default {
         name: 'Journal',
         components: {Tags, FormItem, Types, NumberPad,Layout},
@@ -38,7 +36,7 @@
             if(recordListModel.fetch()!==null){
                 this.recordList=recordListModel.fetch()
             }
-            this.tags=tagListModel.data
+            this.tags=window.tagList
         },
         methods: {
             onUpdateTags(value) {
