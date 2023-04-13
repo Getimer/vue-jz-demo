@@ -54,11 +54,8 @@
                 this.record.amount = value
             },
             onSaveRecord() {
-                this.record.created=new Date()
-                const record2 = recordListModel.clone(this.record);
-                this.recordList.push(record2);
-                recordListModel.save(this.recordList)
-
+                recordListModel.create(this.record)
+                recordListModel.save()
             }
         }
     }
