@@ -15,7 +15,6 @@
     import Types from "@/components/Journal/Types.vue";
     import FormItem from "@/components/Journal/FormItem.vue";
     import Tags from "@/components/Journal/Tags.vue";
-    import {recordListModel} from '@/models/recordListModel.js'
     export default {
         name: 'Journal',
         components: {Tags, FormItem, Types, NumberPad,Layout},
@@ -33,8 +32,8 @@
             }
         },
         mounted() {
-            if(recordListModel.fetch()!==null){
-                this.recordList=recordListModel.fetch()
+            if(window.recordList!==null){
+                this.recordList=window.recordList
             }
             this.tags=window.tagList
         },
@@ -52,8 +51,7 @@
                 this.record.amount = value
             },
             onSaveRecord() {
-                recordListModel.create(this.record)
-                recordListModel.save()
+                window.createRecord(this.record)
             }
         }
     }

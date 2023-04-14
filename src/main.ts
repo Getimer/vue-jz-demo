@@ -9,6 +9,23 @@ import Layout from '@/components/Layout.vue';
 // @ts-ignore
 import {tagListModel} from '@/models/tagListModel.js';
 // @ts-ignore
+import {recordListModel} from '@/models/recordListModel.js';
+//record store
+// @ts-ignore
+window.recordList=recordListModel.fetch()
+// @ts-ignore
+window.createRecord=(record)=>{
+    recordListModel.create(record)
+
+}
+
+
+
+
+
+
+//tag store
+// @ts-ignore
 window.tagList = tagListModel.fetch();
 
 // @ts-ignore
