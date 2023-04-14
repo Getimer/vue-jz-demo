@@ -13,7 +13,6 @@
 <script>
     import Icon from "@/components/Icon";
     import Button from "@/components/Button";
-    import {tagListModel} from "@/models/tagListModel";
 
     export default {
         name:'Labels',
@@ -26,7 +25,10 @@
        methods:{
            createTags(){
                const name=window.prompt("请输入标签名")
-               window.createTag(name)
+               if(name){
+                   window.createTag(name)
+               }
+
            }
        }
     }

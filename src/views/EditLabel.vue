@@ -18,44 +18,37 @@
     import Icon from "@/components/Icon";
     import Layout from "@/components/Layout";
     import FormItem from "@/components/Journal/FormItem"
-    import {tagListModel} from "@/models/tagListModel";
     import Button from "@/components/Button";
 
     export default {
         name: 'EditLabel',
         components: {Button, Layout, Icon, FormItem},
-        data(){
-            return{
-                tag: {},
+        data() {
+            return {
+                tag: window.findTag(this.$route.params.id),
             }
         },
         created() {
-            const id = this.$route.params.id;
-            tagListModel.fetch();
-            const tags = tagListModel.data;
-            const tag = tags.filter(t => t.id === id)[0]
-            if (tag) {
-                this.tag=tag
-            }else {
+            if (!this.tag) {
                 this.$router.replace('/404')
             }
         },
-        methods:{
-            update(name){
-                if(this.tag){
-                    tagListModel.update(this.tag.id,name)
+        methods: {
+            update(name) {
+                if (this.tag) {
+                    window.updateTag(this.tag.id, name)
                 }
             },
-            remove(){
-                if(this.tag){
-                    if(tagListModel.remove(this.tag.id)){
+            remove() {
+                if (this.tag) {
+                    if (window.removeTag(this.tag.id)) {
                         this.$router.back()
-                    }else {
+                    } else {
                         window.alert('删除失败')
                     }
                 }
             },
-            goBack(){
+            goBack() {
                 this.$router.back()
             }
         }
@@ -70,12 +63,15 @@
         justify-content: space-between;
         align-items: center;
         background: white;
+
         .leftIcon {
             width: 24px;
             height: 24px;
         }
+
         .title {
         }
+
         .rightIcon {
             width: 24px;
             height: 24px;
@@ -86,7 +82,8 @@
         margin-top: 5px;
         background: white;
     }
-    .btn-wrapper{
+
+    .btn-wrapper {
         padding-top: 16px;
         margin-top: 16px;
         text-align: center;
