@@ -15,6 +15,7 @@
     import Types from "@/components/Journal/Types.vue";
     import FormItem from "@/components/Journal/FormItem.vue";
     import Tags from "@/components/Journal/Tags.vue";
+    import store from "@/store/index2";
     export default {
         name: 'Journal',
         components: {Tags, FormItem, Types, NumberPad,Layout},
@@ -32,10 +33,10 @@
             }
         },
         mounted() {
-            if(window.recordList!==null){
-                this.recordList=window.recordList
+            if(store.recordList!==null){
+                this.recordList=store.recordList
             }
-            this.tags=window.tagList
+            this.tags=store.tagList
         },
         methods: {
             onUpdateTags(value) {
@@ -51,7 +52,7 @@
                 this.record.amount = value
             },
             onSaveRecord() {
-                window.createRecord(this.record)
+                store.createRecord(this.record)
             }
         }
     }

@@ -13,20 +13,21 @@
 <script>
     import Icon from "@/components/Icon";
     import Button from "@/components/Button";
+    import store from "@/store/index2";
 
     export default {
         name:'Labels',
         components: {Icon,Button},
         data(){
             return{
-                tags:window.tagList
+                tags:store.tagList
             }
         },
        methods:{
            createTags(){
                const name=window.prompt("请输入标签名")
                if(name){
-                   window.createTag(name)
+                   store.createTag(name)
                }
 
            }
