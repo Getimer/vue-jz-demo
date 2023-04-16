@@ -1,9 +1,9 @@
 // @ts-ignore
-import tagListStore from "@/store/tagListStore.js"
+import tagStore from "@/store/tagListStore.js"
 // @ts-ignore
-import recordListStore from '@/store/recordListStore.js';
+import recordStore from '@/store/recordListStore.js';
 const store={
-    ...tagListStore,
-    ...recordListStore,
+    ...tagStore,
+    ...recordStore,
 }
 export default store

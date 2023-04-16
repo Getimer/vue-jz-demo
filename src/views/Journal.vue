@@ -5,7 +5,7 @@
         <div class="formItem-wrapper">
         <FormItem file-name="备注" placeholder="在这里添加备注"  @update:value="onUpdateNotes"/>
         </div>
-        <Tags v-model:data-source="tags" @update:value="onUpdateTags"/>
+        <Tags/>
     </Layout>
 </template>
 
@@ -39,9 +39,6 @@
             this.tags=store.tagList
         },
         methods: {
-            onUpdateTags(value) {
-                this.record.tags = value;
-            },
             onUpdateType(value) {
                 this.record.type = value
             },
@@ -52,7 +49,7 @@
                 this.record.amount = value
             },
             onSaveRecord() {
-                store.createRecord(this.record)
+                store.createRecords(this.record)
             }
         }
     }
