@@ -15,13 +15,11 @@
     import Types from "@/components/Journal/Types.vue";
     import FormItem from "@/components/Journal/FormItem.vue";
     import Tags from "@/components/Journal/Tags.vue";
-    import store from "@/store/index2";
     export default {
         name: 'Journal',
         components: {Tags, FormItem, Types, NumberPad,Layout},
         data() {
             return {
-                tags: [],
                 record: {
                     tags: [],
                     formItem: '',
@@ -29,14 +27,16 @@
                     amount: 0,
                     created:'',
                 },
-                recordList: []
+
             }
         },
-        mounted() {
-            if(store.recordList!==null){
-                this.recordList=store.recordList
-            }
-            this.tags=store.tagList
+        computed:{
+          recordList(){
+              return this.$store.state.recordList
+          }
+        },
+        created(){
+          this.$store.commit('fetchRecords')
         },
         methods: {
             onUpdateType(value) {
@@ -49,7 +49,7 @@
                 this.record.amount = value
             },
             onSaveRecord() {
-                store.createRecords(this.record)
+                this.$store.dispatch('createRecords',this.record)
             }
         }
     }
