@@ -15,14 +15,21 @@
 
 <script lang="js">
     import {defineComponent} from 'vue';
-    import store from "@/store/index2";
 
     export default defineComponent({
         data() {
             return {
                 selectedTags:[] ,
-                tagList:store.fetchTags()
+
             };
+        },
+        computed:{
+          tagList(){
+              return this.$store.state.tagList
+          }
+        },
+        created(){
+            this.$store.commit('fetchTags')
         },
         methods: {
             toggle(tag) {
@@ -37,7 +44,7 @@
             createTag(){
                 const name=window.prompt('请输入标签名');
                 if(!name){window.alert('标签名不能为空');}
-                store.createTag(name)
+                this.$store.dispatch('createTag',name)
             }
         }
     });

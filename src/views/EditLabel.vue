@@ -6,7 +6,7 @@
             <span class="rightIcon"></span>
         </div>
         <div class="form-wrapper">
-            <FormItem :value="this.tag.name" @update:value="update" file-name="标签名" placeholder="请输入标签名"/>
+            <FormItem :value="tag.name" @update:value="update" file-name="标签名" placeholder="请输入标签名"/>
         </div>
         <div class="btn-wrapper">
             <Button @click="remove">删除标签</Button>
@@ -19,17 +19,18 @@
     import Layout from "@/components/Layout";
     import FormItem from "@/components/Journal/FormItem"
     import Button from "@/components/Button";
-    import store from "@/store/index2";
 
     export default {
         name: 'EditLabel',
         components: {Button, Layout, Icon, FormItem},
-        data() {
-            return {
-                tag: store.findTag(this.$route.params.id),
+        computed: {
+            tag() {
+                return this.$store.state.tag
             }
         },
         created() {
+            this.$store.commit('fetchTags')
+           this.$store.commit('fetchEditTag', this.$route.params.id)
             if (!this.tag) {
                 this.$router.replace('/404')
             }
@@ -37,12 +38,12 @@
         methods: {
             update(name) {
                 if (this.tag) {
-                    store.updateTag(this.tag.id, name)
+                    this.$store.dispatch('updateTag', {id:this.tag.id,name:name})
                 }
             },
             remove() {
                 if (this.tag) {
-                    if (store.removeTag(this.tag.id)) {
+                    if (this.$store.dispatch('removeTag', this.tag.id)) {
                         this.$router.back()
                     } else {
                         window.alert('删除失败')
