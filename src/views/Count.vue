@@ -7,6 +7,9 @@
 
 <script>
     import Tabs from "@/components/Tabs";
+    import intervalList from "@/constants/intervalList";
+    import recordTypeList from "@/constants/recordTypeList";
+
 
     export default {
         name: "Count",
@@ -14,8 +17,8 @@
             return {
                 type: '-',
                 interval: 'day',
-               intervalList: [{text: '按天', value: 'day'},{text: '按月', value: 'month'},{text: '按年', value: 'year'}],
-               typeList:[{text: '支出', value: '-'}, {text: '收入', value: '+'}, ]
+               intervalList:intervalList,
+               typeList:recordTypeList
             }
         },
         components: {Tabs},

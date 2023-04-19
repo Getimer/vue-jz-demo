@@ -1,23 +1,23 @@
 <template>
     <Layout class-prefix="layout">
         <NumberPad @update:value="onUpdateAmount" @saveRecord="onSaveRecord" v-model:value="record.amount"/>
-        <Types @update:value="onUpdateType" v-model:type="this.record.type"/>
+        <Tabs :data-source="recordTypeList"  @update:value="onUpdateType" v-model:values="this.record.type"/>
         <div class="formItem-wrapper">
         <FormItem file-name="备注" placeholder="在这里添加备注"  @update:value="onUpdateNotes"/>
         </div>
         <Tags/>
     </Layout>
 </template>
-
 <script lang="js">
     import Layout from "@/components/Layout";
+    import Tabs from "@/components/Tabs";
     import NumberPad from "@/components/Journal/NumberPad.vue";
-    import Types from "@/components/Journal/Types.vue";
     import FormItem from "@/components/Journal/FormItem.vue";
     import Tags from "@/components/Journal/Tags.vue";
+    import recordTypeList from "@/constants/recordTypeList";
     export default {
         name: 'Journal',
-        components: {Tags, FormItem, Types, NumberPad,Layout},
+        components: {Tags, FormItem,Tabs, NumberPad,Layout},
         data() {
             return {
                 record: {
@@ -27,6 +27,7 @@
                     amount: 0,
                     created:'',
                 },
+                recordTypeList:recordTypeList
             }
         },
         computed:{
