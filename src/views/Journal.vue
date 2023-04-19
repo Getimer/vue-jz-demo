@@ -27,7 +27,6 @@
                     amount: 0,
                     created:'',
                 },
-
             }
         },
         computed:{
