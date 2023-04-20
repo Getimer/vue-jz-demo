@@ -5,7 +5,7 @@
         <div class="formItem-wrapper">
         <FormItem file-name="备注" placeholder="在这里添加备注"  @update:value="onUpdateNotes"/>
         </div>
-        <Tags/>
+        <Tags @update:value="onUpdateTags"/>
     </Layout>
 </template>
 <script lang="js">
@@ -39,6 +39,9 @@
           this.$store.commit('fetchRecords')
         },
         methods: {
+            onUpdateTags(value){
+                this.record.tags=value
+            },
             onUpdateType(value) {
                 this.record.type = value
             },
