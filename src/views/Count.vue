@@ -2,12 +2,9 @@
     <Layout>
         <Tabs class="abc" :data-source="typeList" class-prefix="type" @update:value="onUpdateType"
               v-model:values="this.type"/>
-        <Tabs :data-source="intervalList" class-prefix="interval" @update:value="onUpdateInterval"
-              v-model:values="this.interval"/>
-
         <ol>
-            <li v-for="(group,index) in result" :key="index">
-                <h3 class="title">{{group.title}}</h3>
+            <li v-for="(group,index) in groupedList" :key="index">
+                <h3 class="title">{{beautify(group.title)}} <span>￥{{group.total}}</span> </h3>
                 <ol>
                     <li class="record" v-for="item in group.items" :key="item.id">
                        <span>{{tagString(item.tags)}}</span>
@@ -27,6 +24,8 @@
     import Tabs from "@/components/Tabs";
     import intervalList from "@/constants/intervalList";
     import recordTypeList from "@/constants/recordTypeList";
+    import dayJs from "dayjs";
+    import clone from "@/lib/clone";
 
 
     export default {
@@ -41,17 +40,27 @@
         },
         components: {Tabs},
         computed: {
-            result() {
+            groupedList() {
                 const {recordList} = this
-                const hashTable = {key: {title: '', items: []}}
-                for (let i = 0; i < recordList.length; i++) {
-                    const [date, time] = recordList[i].created.split("T");
-                    hashTable[date] = hashTable[date] || {title: date, items: []}
-                    if (hashTable[date].items) {
-                        hashTable[date].items.push(recordList[i])
+                if(recordList.length===0){return []}
+                const newList=clone(recordList).filter(r=>r.type===this.type).sort((a,b)=>dayJs(b.created).valueOf()-dayJs(a.created).valueOf())
+                const result=[{title:dayJs(newList[0].created).format('YYYY-MM-DD'),items:[newList[0]]}]
+                for(let i=1;i<newList.length;i++){
+                    const current=newList[i]
+                    const last=result[result.length-1]
+                    if(dayJs(last.title).isSame(dayJs(current.created,),'day')){
+                        last.items.push(current)
+                    }else{
+                        result.push({title: dayJs(current.created).format('YYYY-MM-DD'),items:[current]})
                     }
                 }
-                return hashTable;
+                result.map(group=>{
+                    group.total=group.items.reduce((sum,item)=>{
+                        console.log(typeof sum)
+                        console.log(typeof item.amount)
+                        return sum+item.amount},0)
+                })
+                return result
             },
             recordList() {
                 return this.$store.state.recordList;
@@ -61,6 +70,22 @@
             this.$store.commit('fetchRecords')
         },
         methods: {
+            beautify(string){
+                const day=dayJs(string)
+                const now=dayJs()
+                if(day.isSame(now.valueOf(),"day")){
+                    return '今天'
+                }else if(day.isSame(now.subtract(1,'day'),"day")){
+                    return  '昨天'
+                }else if(day.isSame(now.subtract(2,'day'),"day")){
+                    return '前天'
+                }else if(day.isSame(now,'year')){
+                    return day.format('M月D日')
+                }else{
+                    return day.format('YYYY年M月D日')
+                }
+
+            },
             tagString(tags){
                 if(tags.length!==0){
                     return tags.join(",")
@@ -72,10 +97,6 @@
             onUpdateType(value) {
                 this.type = value
             },
-            onUpdateInterval(value) {
-                this.interval = value
-            },
-
         }
     }
 </script>
@@ -91,15 +112,7 @@
         background: white;
         &.selected {
             background: #c4c4c4;
-
-            &::after {
-                display: none;
-            }
         }
-    }
-
-    :deep(.interval-item) {
-        height: 48px;
     }
     .title{
         @extend %item

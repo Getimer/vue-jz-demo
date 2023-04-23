@@ -62,8 +62,8 @@
                 this.output = '0';
             },
             ok(){
-                this.$emit('update:value',this.output);
-                this.$emit('saveRecord',this.output);
+                this.$emit('update:value',parseFloat(this.output));
+                this.$emit('saveRecord',parseFloat(this.output));
                 this.output='0'
             }
         }
