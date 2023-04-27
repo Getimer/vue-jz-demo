@@ -25,7 +25,8 @@
             }
         },
         created(){
-            this.$store.commit('fetchTags')
+            this.$store.dispatch('fetchTags')
+            this.$store.dispatch('initTags')
         },
         methods: {
             createTags() {

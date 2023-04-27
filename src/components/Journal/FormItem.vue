@@ -3,7 +3,7 @@
         <span class="name">{{this.fileName}}</span>
         <input  type="text"
                 :placeholder="this.placeholder"
-                :value="this.value"
+                :value="this.num"
                 @input="onChangeValue($event.target.value)"
         >
     </label>
@@ -11,9 +11,8 @@
 
 <script lang="js">
     import {defineComponent} from 'vue';
-
     export default defineComponent({
-        props:['fileName','placeholder','value'],
+        props:['fileName','placeholder','num'],
         methods:{
           onChangeValue(val){
               this.$emit('update:value',val)

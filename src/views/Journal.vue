@@ -3,9 +3,9 @@
         <NumberPad @update:value="onUpdateAmount" @saveRecord="onSaveRecord" v-model:value="record.amount"/>
         <Tabs :data-source="recordTypeList"  @update:value="onUpdateType" v-model:values="this.record.type"/>
         <div class="formItem-wrapper">
-        <FormItem file-name="备注" placeholder="在这里添加备注"  @update:value="onUpdateNotes"/>
+        <FormItem file-name="备注" placeholder="在这里添加备注" :num="this.record.formItem" @update:value="onUpdateNotes"/>
         </div>
-        <Tags @update:value="onUpdateTags"/>
+        <Tags @update:value="onUpdateTags" />
     </Layout>
 </template>
 <script lang="js">
@@ -52,7 +52,14 @@
                 this.record.amount = value
             },
             onSaveRecord() {
-                this.$store.dispatch('createRecords',this.record)
+                if(this.record.tags.length===0&&!this.record.tags){
+                   return  window.alert('请至少输入一个标签')
+                }
+                if(this.$store.dispatch('createRecords',this.record)){
+                    window.alert('已保存')
+                    this.record.formItem=''
+                }
+
             }
         }
     }

@@ -2,7 +2,7 @@
     <Layout>
         <Tabs class="abc" :data-source="typeList" class-prefix="type" @update:value="onUpdateType"
               v-model:values="this.type"/>
-        <ol>
+        <ol v-if="groupedList.length>0">
             <li v-for="(group,index) in groupedList" :key="index">
                 <h3 class="title">{{beautify(group.title)}} <span>￥{{group.total}}</span> </h3>
                 <ol>
@@ -15,7 +15,9 @@
             </li>
 
         </ol>
-
+        <div v-else class="noResult">
+            目前没有相关记录!
+        </div>
 
     </Layout>
 </template>
@@ -42,8 +44,9 @@
         computed: {
             groupedList() {
                 const {recordList} = this
-                if(recordList.length===0){return []}
+
                 const newList=clone(recordList).filter(r=>r.type===this.type).sort((a,b)=>dayJs(b.created).valueOf()-dayJs(a.created).valueOf())
+                if(newList.length===0){return []}
                 const result=[{title:dayJs(newList[0].created).format('YYYY-MM-DD'),items:[newList[0]]}]
                 for(let i=1;i<newList.length;i++){
                     const current=newList[i]
@@ -88,7 +91,7 @@
             },
             tagString(tags){
                 if(tags.length!==0){
-                    return tags.join(",")
+                    return tags.join("，")
                 }else {
                     return '—'
                 }
@@ -113,6 +116,10 @@
         &.selected {
             background: #c4c4c4;
         }
+    }
+    .noResult{
+        text-align: center;
+        padding: 40px;
     }
     .title{
         @extend %item

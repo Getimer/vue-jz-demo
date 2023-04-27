@@ -20,11 +20,6 @@ export default createStore({
                 state.recordList= JSON.parse(<string>localStorage.getItem('recordList'))
             }
         },
-        fetchTags(state){
-            if(window.localStorage.getItem('tagList')){
-                state.tagList=JSON.parse(<string>localStorage.getItem('tagList'))
-            }
-        },
         fetchEditTag(state,id){
             // @ts-ignore
             state.tag=JSON.parse(JSON.stringify(state.tagList.filter(t => t.id === id)[0]))
@@ -37,13 +32,41 @@ export default createStore({
         },
     },
     actions: {
-        createRecords({commit,state}, record) {
-            const record2 = clone(record);
-            record2.created = new Date();
-            // @ts-ignore
-            state.recordList.push(record2);
-            commit('saveRecords')
+        fetchTags({state}){
+            if(window.localStorage.getItem('tagList')){
+                state.tagList=JSON.parse(<string>localStorage.getItem('tagList'))
+                return true
+            }else {
+                return false
+            }
         },
+        createRecords({commit,state}, record) {
+            if(record){
+                const record2 = clone(record);
+                record2.created = new Date();
+                // @ts-ignore
+                state.recordList.push(record2);
+                commit('saveRecords')
+                return true
+            }else {
+                return false
+            }
+
+
+        },
+        initTags({state}){
+            if(state.tagList.length===0&&!state.tagList.length){
+                // @ts-ignore
+                this.dispatch('createTag','衣')
+                // @ts-ignore
+                this.dispatch('createTag','食')
+                // @ts-ignore
+                this.dispatch('createTag','住')
+                // @ts-ignore
+                this.dispatch('createTag','行')
+            }
+        },
+
         createTag({commit,state},name){
             // @ts-ignore
             const names=state.tagList.map(item=>item.name)
@@ -57,7 +80,9 @@ export default createStore({
             state.tagList.push({id,name:name})
             commit('saveTag')
             location.reload()
-            window.alert('添加成功！')
+            if(state.tagList.length>4){
+                window.alert('添加成功！')
+            }
             return 'success'
         },
         removeTag({commit,state},id){

@@ -29,7 +29,7 @@
             }
         },
         created() {
-            this.$store.commit('fetchTags')
+            this.$store.dispatch('fetchTags')
            this.$store.commit('fetchEditTag', this.$route.params.id)
             if (!this.tag) {
                 this.$router.replace('/404')
