@@ -3,6 +3,10 @@ const { defineConfig } = require('@vue/cli-service')
 const path=require('path')
 
 module.exports = defineConfig({
+  publicPath: process.env.NODE_ENV === 'production'
+      ? '/vue-jz-demo-website/'
+      : '/'
+  ,
   transpileDependencies: true,
   lintOnSave: false,
   chainWebpack: config => {
